@@ -2,7 +2,8 @@
   "name": "course-work-front",
   "version": "0.1.0",
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "7.21.1"
   },
   "private": true,
   "scripts": {
