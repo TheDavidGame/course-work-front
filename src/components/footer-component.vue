@@ -9,7 +9,7 @@
         <v-img class="footer-logo" :src="require('../assets/instagram.png')"/>
       </v-col>
       <v-col sm="1" align="center">
-        <v-img class="footer-logo justify-center" :src="require('../assets/facebook.png')"/>
+        <v-img class="footer-logo" :src="require('../assets/facebook.png')"/>
       </v-col>
       <v-spacer/>
     </v-row>
