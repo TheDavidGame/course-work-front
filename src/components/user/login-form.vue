@@ -31,6 +31,16 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-snackbar
+        v-model="snackbar"
+        :timeout="1500"
+        top
+        color="error"
+    >
+      <div style="text-align: center">
+        Неверный логин или пароль
+      </div>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -40,6 +50,7 @@ import {mapActions, mapMutations} from 'vuex'
 export default {
   name: "login-form",
   data: () => ({
+    snackbar: false,
     email: '',
     password: ''
   }),
@@ -50,9 +61,13 @@ export default {
       let formBody = new FormData();
       formBody.append('username', this.email)
       formBody.append('password', this.password)
-      this.login(formBody).then(() => {
-        this.$router.push('/')
-        this.authenticate()
+      this.login(formBody).then(r => {
+        if (r.request.responseURL.endsWith('?error')) this.snackbar = true
+        else {
+          this.$router.push('/')
+          this.authenticate()
+        }
+
       })
     }
   }

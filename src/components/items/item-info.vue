@@ -3,7 +3,7 @@
     <v-row>
       <v-spacer/>
       <v-col align="center">
-        <h1>Test</h1>
+        <h1>{{ product.name }}</h1>
       </v-col>
       <v-spacer/>
     </v-row>
@@ -21,11 +21,11 @@
         </div>
         <v-divider/>
         <div class="my-3">
-          Процессор {{ product.CPU }}
+          Процессор {{ product.cpu }}
         </div>
         <v-divider/>
         <div class="my-3">
-          Оперативная память {{ product.RAM }}
+          Оперативная память {{ product.ram }}
         </div>
         <v-divider/>
         <div class="my-3">
@@ -60,6 +60,16 @@
         <v-btn @click="addToCart(product.id)">Добавить в корзину</v-btn>
       </v-col>
     </v-row>
+    <v-snackbar
+        v-model="snackbar"
+        :timeout="1500"
+        top
+        color="success"
+    >
+      <div style="text-align: center">
+        Товар добавлен в корзину
+      </div>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -70,6 +80,7 @@ import router from "@/router";
 export default {
   name: "item-info",
   data: () => ({
+    snackbar: false,
     product: {}
   }),
   computed: {
@@ -79,7 +90,7 @@ export default {
   methods: {
     ...mapActions(['getProduct', 'addItemToCart']),
     addToCart(id) {
-      this.isAuthenticated ? this.addItemToCart(id) : router.push('/user')
+      this.isAuthenticated ? this.addItemToCart(id).then(() => this.snackbar = true) : router.push('/user')
     }
   },
   beforeMount() {
